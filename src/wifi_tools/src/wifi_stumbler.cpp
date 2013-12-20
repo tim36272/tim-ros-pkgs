@@ -74,22 +74,14 @@ bool WifiStumbler::initialize(std::string wlan_if)
 
 bool WifiStumbler::stumble()
 {
-  int pid;
-  pid = getpid();
-
   struct iwreq w_request;
-  /*
-   * Tim modified from
-   *   w_request.u.data.pointer = (caddr_t)&pid;
-   *   w_request.u.data.length = 0;
-   */
   w_request.u.data.pointer = NULL;
   w_request.u.data.length = 0;
 
-
+  //put the wifi interface in scan mode
   if (iw_set_ext(wlan_sock_, wlan_if_.c_str(), SIOCSIWSCAN, &w_request) < 0)
   {
-    ROS_ERROR_STREAM("Couldn't start stumbler, interface: "<<wlan_if_.c_str());
+    ROS_ERROR_STREAM("Couldn't start stumbler on interface: "<<wlan_if_.c_str()<<" are you root?");
     return false;
   }
 
@@ -99,10 +91,11 @@ bool WifiStumbler::stumble()
   time.tv_usec = 200000;
 
   uint8_t *p_buff = NULL;
-  int buff_size = IW_SCAN_MAX_DATA;
+  int buff_size = IW_SCAN_MAX_DATA*2;
 
   bool is_end = false;
-ROS_INFO_STREAM("getting AP data from OS");
+
+  //do a wifi scan
   while(!is_end)
   {
     fd_set fds;
@@ -121,27 +114,37 @@ ROS_INFO_STREAM("getting AP data from OS");
         w_request.u.data.length = buff_size;
         if (iw_get_ext(wlan_sock_, wlan_if_.c_str(), SIOCGIWSCAN, &w_request) < 0)
         {
-          if (errno == E2BIG && range_.we_version_compiled > 16)
+          if (errno == E2BIG)
           {
-            if (w_request.u.data.length > buff_size)
+            if (w_request.u.data.length > buff_size) {
               buff_size = w_request.u.data.length;
-            else
+              ROS_DEBUG("WiFi scan result buffer was too short, using kernel recommendation");
+            }
+            else {
               buff_size *= 2;
+              ROS_DEBUG("WiFi scan result buffer was too short, doubling the size");
+            }
             continue;
           }
           else if (errno == EAGAIN)
           {
             time.tv_sec = 0;
-            time.tv_usec = 200000;
+            time.tv_usec = 500000;
+            ROS_DEBUG("Kernel reports wifi scan not done yet, waiting .5 seconds");
             break;
           }
+          else {
+        	  ROS_ERROR_STREAM("WiFi scan returned unidentified error: "<<errno);
+          }
         }
-        else
+        else {
+
           is_end = true;
+
+        }
       }
     }
   }
-	ROS_INFO_STREAM("building msg");
   // Put wifi data into ROS message
   wifi_tools::AccessPoint ap;
   iw_event event;

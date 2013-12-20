@@ -46,6 +46,13 @@ private:
   std::string frame_id_;        // frame_id of WiFi adapter
 };
 
+void setLoggerDebug() {
+	log4cxx::LoggerPtr my_logger =
+	           log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME);
+	my_logger->setLevel(
+	           ros::console::g_level_lookup[ros::console::levels::Debug]);
+}
+
 
 
 WifiStumblerNode::WifiStumblerNode() :
@@ -76,8 +83,9 @@ void WifiStumblerNode::run()
   ros::Rate rate_Hz(1);
   while(ros::ok())
   {
-    wifi_tools::WifiData wifi_msg;
+	  ROS_DEBUG_STREAM("Stumbling");
     stumbler_.stumble();
+    wifi_tools::WifiData wifi_msg;
     wifi_msg = stumbler_.getData();
     ROS_INFO("Found %d AP.",(int)wifi_msg.data.size());
     wifi_pub_.publish(wifi_msg);
@@ -90,6 +98,7 @@ void WifiStumblerNode::run()
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "wifi_stumbler_node");
+  setLoggerDebug();
   WifiStumblerNode stumbler;
   stumbler.run();
   return(0);
