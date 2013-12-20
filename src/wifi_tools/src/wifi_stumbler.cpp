@@ -93,6 +93,7 @@ bool WifiStumbler::stumble()
     return false;
   }
 
+
   timeval time;
   time.tv_sec = 0;
   time.tv_usec = 200000;
@@ -101,6 +102,7 @@ bool WifiStumbler::stumble()
   int buff_size = IW_SCAN_MAX_DATA;
 
   bool is_end = false;
+ROS_INFO_STREAM("getting AP data from OS");
   while(!is_end)
   {
     fd_set fds;
@@ -139,7 +141,7 @@ bool WifiStumbler::stumble()
       }
     }
   }
-
+	ROS_INFO_STREAM("building msg");
   // Put wifi data into ROS message
   wifi_tools::AccessPoint ap;
   iw_event event;

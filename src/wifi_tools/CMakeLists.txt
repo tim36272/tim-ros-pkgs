@@ -6,7 +6,6 @@ project(wifi_tools)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs message_generation)
 
-find_package(PCL REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -73,7 +72,7 @@ include_directories(include
 # )
 
 ## Declare a cpp executable
-add_executable(wifi_stumbler src/wifi_stumbler_node.cpp src/wifi_stumbler.cpp src/wifi_mapping_node.cpp)
+add_executable(wifi_stumbler src/wifi_stumbler_node.cpp src/wifi_stumbler.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
