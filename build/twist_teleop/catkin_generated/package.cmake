@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "twist_teleop")
+set(twist_teleop_MAINTAINER "Tim Sweet <timothy.l.sweet@gmail.com>")
+set(twist_teleop_DEPRECATED "")
+set(twist_teleop_VERSION "0.0.1")
+set(twist_teleop_BUILD_DEPENDS "roscpp")
+set(twist_teleop_RUN_DEPENDS "roscpp")
+set(twist_teleop_BUILDTOOL_DEPENDS "catkin")

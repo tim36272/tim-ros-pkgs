@@ -1,0 +1,69 @@
+/*
+ * twist_teleop.cpp
+    Copyright (C) 2013  Timothy Sweet
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+//STL Includes
+
+//library includes
+#include <ros/ros.h>
+#include <nav_msgs/Odometry.h>
+
+//project includes
+
+
+class OdomDriftCorrector {
+public:
+	OdomDriftCorrector();
+
+	//assignment and copy is not allowed, these have no implementation
+	OdomDriftCorrector operator = (const OdomDriftCorrector& rhs);
+	OdomDriftCorrector(const OdomDriftCorrector& rhs);
+
+private:
+	ros::NodeHandle handle_;
+	ros::Publisher odom_out_stream;
+	ros::Subscriber odom_in_stream;
+
+	std::string in_topic_,out_topic_;
+	void callback(const nav_msgs::Odometry& msg);
+
+
+};
+
+int main(int argc, char* argv[]) {
+	ros::init(argc,argv,"odom_drift_corrector");
+	ros::NodeHandle handle("~");
+
+	//start the systme
+	OdomDriftCorrector corrector;
+
+	//spppiinnn!
+	ros::spin();
+
+	return 0;
+
+
+}
+
+OdomDriftCorrector::OdomDriftCorrector() : out_topic_("odom_out"), in_topic_("odom_in") {
+	odom_out_stream = handle_.advertise<nav_msgs::Odometry>(out_topic_,1);
+	odom_in_stream = handle_.subscribe(in_topic_, 5, &OdomDriftCorrector::callback,this);
+}
+
+void OdomDriftCorrector::callback(const nav_msgs::Odometry& msg) {
+
+}

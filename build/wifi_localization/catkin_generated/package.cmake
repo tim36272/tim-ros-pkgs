@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "wifi_localization")
+set(wifi_localization_MAINTAINER "Tim Sweet <timothy.l.sweet@gmail.com>")
+set(wifi_localization_DEPRECATED "")
+set(wifi_localization_VERSION "0.0.1")
+set(wifi_localization_BUILD_DEPENDS "roscpp" "message_generation")
+set(wifi_localization_RUN_DEPENDS "message_runtime" "roscpp")
+set(wifi_localization_BUILDTOOL_DEPENDS "catkin")

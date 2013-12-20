@@ -1,0 +1,8 @@
+prefix=/home/tim/Dropbox/Workspaces/tim-ros-pkgs/install
+
+Name: wifi_localization
+Description: Description of wifi_localization
+Version: 0.0.1
+Cflags: -I/home/tim/Dropbox/Workspaces/tim-ros-pkgs/install/include
+Libs: -L/home/tim/Dropbox/Workspaces/tim-ros-pkgs/install/lib 
+Requires: roscpp

@@ -1,0 +1,8 @@
+prefix=/home/tim/Dropbox/Workspaces/tim-ros-pkgs/devel
+
+Name: odom_drift_corrector
+Description: Description of odom_drift_corrector
+Version: 0.0.1
+Cflags: 
+Libs: -L/home/tim/Dropbox/Workspaces/tim-ros-pkgs/devel/lib 
+Requires: roscpp
