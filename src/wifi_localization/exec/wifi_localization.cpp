@@ -34,7 +34,7 @@ private:
 
 int main(int argc, char* argv[]) {
 
-	ros::init(argc,argv,"Wifi-Localizer");
+	ros::init(argc,argv,"Wifi_Localizer");
 	//create localizer object
 	WifiLocalizer wl;
 

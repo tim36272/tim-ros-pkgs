@@ -1,8 +1,0 @@
-prefix=/home/tim/Dropbox/Workspaces/tim-ros-pkgs/install
-
-Name: twist_teleop
-Description: Description of twist_teleop
-Version: 0.0.1
-Cflags: 
-Libs: -L/home/tim/Dropbox/Workspaces/tim-ros-pkgs/install/lib 
-Requires: roscpp

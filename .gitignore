@@ -11,3 +11,10 @@
 *.lai
 *.la
 *.a
+
+#gedit temp files
+*~
+
+#ros build dirs
+build/
+devel/

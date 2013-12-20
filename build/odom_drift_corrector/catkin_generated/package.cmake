@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "odom_drift_corrector")
-set(odom_drift_corrector_MAINTAINER "Tim Sweet <timothy.l.sweet@gmail.com>")
-set(odom_drift_corrector_DEPRECATED "")
-set(odom_drift_corrector_VERSION "0.0.1")
-set(odom_drift_corrector_BUILD_DEPENDS "roscpp" "nav_msgs" "tf")
-set(odom_drift_corrector_RUN_DEPENDS "roscpp" "nav_msgs" "tf")
-set(odom_drift_corrector_BUILDTOOL_DEPENDS "catkin")
