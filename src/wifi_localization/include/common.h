@@ -1,5 +1,5 @@
 /*
- * wifi_mapping.cpp
+ * common.cpp
     Copyright (C) 2013  Timothy Sweet
 
     This program is free software: you can redistribute it and/or modify
@@ -16,24 +16,19 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//STL includes
-
-//Library includes
+// A macro to disallow the copy constructor and operator= functions
+// This should be used in the private: declarations for a class
 #include <ros/ros.h>
+#define DISALLOW_COPY_AND_ASSIGN(TypeName) \
+  TypeName(const TypeName&);               \
+  void operator=(const TypeName&)
 
-//Project includes
-#include "WifiMapper.h"
+// A macro to disallow the default constructor
+// This should be used in the public: declarations for a class
+#define DISALLOW_DEFAULT_CONSTRUCTION(TypeName) \
+  TypeName();
 
-int main(int argc, char* argv[]) {
-
-	ros::init(argc,argv,"Wifi_Maping");
-	//create mapping object
-	setLoggerDebug();
-	WifiMapper wm;
-
-	//spin
-	ros::spin();
-	return 0;
-}
-
+// A macro to set the ROS log level for the active node to debu
+#define setLoggerDebug() \
+  log4cxx::Logger::getLogger(ROSCONSOLE_DEFAULT_NAME)->setLevel(ros::console::g_level_lookup[ros::console::levels::Debug]);
 

@@ -1,6 +1,6 @@
 /*
- * wifi_mapping.cpp
-    Copyright (C) 2013  Timothy Sweet
+ * PgmImage.h
+    Copyright (C) 2014  Timothy Sweet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,24 +16,23 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//STL includes
+#ifndef PGMIMAGE_H_
+#define PGMIMAGE_H_
+#include "common.h"
+#include <iostream>
+#include <fstream>
 
-//Library includes
-#include <ros/ros.h>
+class PgmImage {
+	public:
+	PgmImage();
+	PgmImage(int x, int y);
+	int x_size,y_size;
+	unsigned char** data;
+	void write(const std::string& filename);
 
-//Project includes
-#include "WifiMapper.h"
+	private:
+	DISALLOW_COPY_AND_ASSIGN(PgmImage);
 
-int main(int argc, char* argv[]) {
+};
 
-	ros::init(argc,argv,"Wifi_Maping");
-	//create mapping object
-	setLoggerDebug();
-	WifiMapper wm;
-
-	//spin
-	ros::spin();
-	return 0;
-}
-
-
+#endif /* PGMIMAGE_H_ */

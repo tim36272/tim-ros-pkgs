@@ -4,7 +4,7 @@ project(wifi_localization)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp nav_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp nav_msgs visualization_msgs tf)
 
 add_message_files(
    FILES
@@ -26,7 +26,7 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#   INCLUDE_DIRS
+   INCLUDE_DIRS include
 #  LIBRARIES 
   CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
@@ -40,9 +40,9 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-#include_directories(include
-#  ${catkin_INCLUDE_DIRS}
-#)
+include_directories(include/
+  ${catkin_INCLUDE_DIRS}
+)
 
 
 ## Add cmake target dependencies of the executable/library
@@ -96,5 +96,18 @@ catkin_package(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
+add_library(utilities src/utility.cpp )
+target_link_libraries(utilities ${catkin_LIBRARIES})
+link_libraries(utilities)
+
+add_library(classes src/PgmImage.cpp src/WifiMapper.cpp)
+target_link_libraries(classes ${catkin_LIBRARIES})
+link_libraries(classes)
+
 add_executable (wifi_localization exec/wifi_localization.cpp)
 target_link_libraries(wifi_localization ${catkin_LIBRARIES})
+
+add_executable (wifi_mapping exec/wifi_mapping.cpp)
+target_link_libraries(wifi_mapping ${catkin_LIBRARIES})
+
+

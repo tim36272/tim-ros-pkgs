@@ -1,6 +1,6 @@
 /*
- * wifi_mapping.cpp
-    Copyright (C) 2013  Timothy Sweet
+ * utility.h
+    Copyright (C) 2014  Timothy Sweet
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,24 +16,16 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-//STL includes
-
-//Library includes
-#include <ros/ros.h>
-
-//Project includes
+#ifndef UTILITY_H_
+#define UTILITY_H_
+#include "wifi_localization/WifiData.h"
 #include "WifiMapper.h"
+#include <vector>
 
-int main(int argc, char* argv[]) {
+namespace utility {
+void merge_wifiData(const wifi_localization::WifiData::_data_type& merge_from, wifi_localization::WifiData::_data_type& merge_into);
+float compare_observation(const wifi_localization::WifiData::_data_type& truth,const wifi_localization::WifiData::_data_type& observation);
+int find_likelyhood(const std::vector<float>& cdf, float value_to_find);
+} //namespace utility
 
-	ros::init(argc,argv,"Wifi_Maping");
-	//create mapping object
-	setLoggerDebug();
-	WifiMapper wm;
-
-	//spin
-	ros::spin();
-	return 0;
-}
-
-
+#endif /* UTILITY_H_ */
